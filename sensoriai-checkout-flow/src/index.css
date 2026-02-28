@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 152 100% 50%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 152 100% 50%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 152 100% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 152 100% 50%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 152 100% 50%;
+
+    /* Custom tokens */
+    --glow-primary: 0 0 20px hsl(152 100% 50% / 0.3);
+    --glow-primary-strong: 0 0 40px hsl(152 100% 50% / 0.4), 0 0 80px hsl(152 100% 50% / 0.1);
+    --glass-bg: hsl(220 18% 10% / 0.6);
+    --glass-border: hsl(0 0% 100% / 0.08);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+  }
+
+  .glow-border {
+    box-shadow: var(--glow-primary);
+    border-color: hsl(152 100% 50% / 0.3);
+  }
+
+  .glow-border-strong {
+    box-shadow: var(--glow-primary-strong);
+    border-color: hsl(152 100% 50% / 0.5);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(152 100% 50% / 0.5);
+  }
+
+  .btn-glow {
+    box-shadow: 0 0 20px hsl(152 100% 50% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 30px hsl(152 100% 50% / 0.5), 0 0 60px hsl(152 100% 50% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  }
+}
