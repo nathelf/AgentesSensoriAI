@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, MonitorPlay } from "lucide-react";
+import { Play, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "@/components/PhoneMockup";
 import { DASHBOARD_URL } from "@/config";
@@ -48,33 +48,16 @@ const HeroSection = () => {
                 Testar Agente Agora (Demo Grátis)
               </Button>
 
-              {/* Botão do Vídeo - Substitua 'SEU_LINK_AQUI' pelo link do YouTube/Vimeo quando tiver */}
+              {/* Botão de contato - leva para WhatsApp ou formulário */}
               <Button
                 size="lg"
                 variant="outline"
                 className="border-glass-border text-foreground hover:bg-muted/50 text-base px-8 py-6 font-medium gap-2"
-                onClick={() => window.open("https://seu-video-aqui.com", "_blank")}
+                onClick={() => window.open("https://wa.me/5545998294881?text=Olá! Tenho interesse no Agente de Vendas da SensoriAI", "_blank")}
               >
-                <MonitorPlay className="w-5 h-5" />
-                Ver Vídeo de 1 min
+                <MessageCircle className="w-5 h-5" />
+                Falar com Consultor
               </Button>
-            </div>
-
-            {/* Social proof */}
-            <div className="mt-10 flex items-center gap-6 justify-center lg:justify-start">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full border-2 border-background bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground"
-                  >
-                    {String.fromCharCode(64 + i)}
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground">
-                <span className="text-foreground font-semibold">+500 empresas</span> já automatizaram
-              </p>
             </div>
           </motion.div>
 
