@@ -1,15 +1,16 @@
 /**
- * URL do dashboard.
- * No Vercel (deploy único): usa /dashboard (mesmo domínio).
- * Em dev com 3 apps: configure VITE_DASHBOARD_URL no .env (ex: http://localhost:3001).
+ * Retorna a URL absoluta (ex: https://seusite.vercel.app/dashboard).
+ * Em produção: usa a origem atual do site, assim o link abre numa página nova correta.
+ * Em dev: use VITE_DASHBOARD_URL no .env (ex: http://localhost:3001) se rodar os 3 apps separados.
  */
-export const DASHBOARD_URL =
-  import.meta.env.VITE_DASHBOARD_URL || "/dashboard";
+function appUrl(path: string, envUrl: string | undefined): string {
+  if (envUrl) return envUrl;
+  if (typeof window !== "undefined") return window.location.origin + path;
+  return path;
+}
 
-/**
- * URL do checkout (planos).
- * No Vercel (deploy único): usa /checkout (mesmo domínio).
- * Em dev com 3 apps: configure VITE_CHECKOUT_URL no .env (ex: http://localhost:3002).
- */
-export const CHECKOUT_URL =
-  import.meta.env.VITE_CHECKOUT_URL || "/checkout";
+export const getDashboardUrl = (): string =>
+  appUrl("/dashboard", import.meta.env.VITE_DASHBOARD_URL);
+
+export const getCheckoutUrl = (): string =>
+  appUrl("/checkout", import.meta.env.VITE_CHECKOUT_URL);

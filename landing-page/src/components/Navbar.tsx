@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { DASHBOARD_URL, CHECKOUT_URL } from "@/config";
+import { getDashboardUrl, getCheckoutUrl } from "@/config";
 
 const navItems = [
   { label: "Problema", href: "#problema" },
   { label: "Nichos", href: "#nichos" },
   { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Dashboard", href: DASHBOARD_URL, openInNewTab: true },
-  { label: "Planos", href: CHECKOUT_URL, openInNewTab: true },
+  { label: "Dashboard", href: getDashboardUrl(), openInNewTab: true },
+  { label: "Planos", href: getCheckoutUrl(), openInNewTab: true },
 ];
 
 const Navbar = () => {
@@ -52,13 +52,15 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) =>
             "openInNewTab" in item && item.openInNewTab ? (
-              <button
+              <a
                 key={item.label}
-                onClick={() => window.open(item.href, "_blank")}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md block"
               >
                 {item.label}
-              </button>
+              </a>
             ) : (
               <button
                 key={item.href}
@@ -69,12 +71,14 @@ const Navbar = () => {
               </button>
             )
           )}
-          <button
-            onClick={() => window.open(DASHBOARD_URL, "_blank")}
-            className="ml-3 px-5 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          <a
+            href={getDashboardUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-3 px-5 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-block"
           >
             Demo Grátis
-          </button>
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -98,16 +102,16 @@ const Navbar = () => {
             <div className="px-4 py-4 space-y-1">
               {navItems.map((item) =>
                 "openInNewTab" in item && item.openInNewTab ? (
-                  <button
+                  <a
                     key={item.label}
-                    onClick={() => {
-                      setMobileOpen(false);
-                      window.open(item.href, "_blank");
-                    }}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
                     className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
                   >
                     {item.label}
-                  </button>
+                  </a>
                 ) : (
                   <button
                     key={item.href}
@@ -118,15 +122,15 @@ const Navbar = () => {
                   </button>
                 )
               )}
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  window.open(DASHBOARD_URL, "_blank");
-                }}
+              <a
+                href={getDashboardUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
                 className="block w-full mt-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground text-center"
               >
                 Demo Grátis
-              </button>
+              </a>
             </div>
           </motion.div>
         )}

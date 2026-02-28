@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Play, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "@/components/PhoneMockup";
-import { DASHBOARD_URL } from "@/config";
+import { getDashboardUrl } from "@/config";
 
 const HeroSection = () => {
   return (
@@ -42,10 +42,12 @@ const HeroSection = () => {
                 size="lg"
                 variant="outline"
                 className="border-glass-border text-foreground hover:bg-muted/50 text-base px-8 py-6 font-medium gap-2"
-                onClick={() => window.open(DASHBOARD_URL, "_blank")}
+                asChild
               >
-                <Play className="w-5 h-5" />
-                Testar Agente (Demo Grátis)
+                <a href={getDashboardUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Testar Agente (Demo Grátis)
+                </a>
               </Button>
               <Button
                 size="lg"

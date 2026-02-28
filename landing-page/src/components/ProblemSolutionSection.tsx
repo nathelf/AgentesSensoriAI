@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Clock, Bot, Brain, CreditCard } from "lucide-react";
-import { CHECKOUT_URL } from "@/config";
+import { getCheckoutUrl } from "@/config";
 
 const cards = [
   {
@@ -51,16 +51,17 @@ const ProblemSolutionSection = () => {
           className="text-center mb-16"
         >
           <div className="mb-10 flex justify-center">
-            <motion.button
-              type="button"
-              onClick={() => window.open(CHECKOUT_URL, "_blank")}
+            <motion.a
+              href={getCheckoutUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
               className="animate-planos-cta btn-glow relative inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-xl shadow-primary/30 transition-all hover:bg-primary/90 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <CreditCard className="h-6 w-6" />
               Ver Planos e Preços
-            </motion.button>
+            </motion.a>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Seu time dorme.{" "}

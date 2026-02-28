@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { BarChart3, TrendingUp, Users, ShoppingCart, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DASHBOARD_URL } from "@/config";
+import { getDashboardUrl } from "@/config";
 
 const stats = [
   { icon: ShoppingCart, value: "1.247", label: "Vendas este mês" },
@@ -120,13 +120,11 @@ const DashboardSection = () => {
 
             {/* Botão para abrir o dashboard em nova aba */}
             <div className="mt-6 flex justify-center">
-              <Button
-                size="lg"
-                className="btn-glow bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2"
-                onClick={() => window.open(DASHBOARD_URL, "_blank")}
-              >
-                <ExternalLink className="w-4 h-4" />
-                Acessar Dashboard
+              <Button size="lg" className="btn-glow bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2" asChild>
+                <a href={getDashboardUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Acessar Dashboard
+                </a>
               </Button>
             </div>
           </div>
