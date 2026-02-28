@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { DASHBOARD_URL } from "@/config";
+import { DASHBOARD_URL, CHECKOUT_URL } from "@/config";
 
 const navItems = [
   { label: "Problema", href: "#problema" },
   { label: "Nichos", href: "#nichos" },
   { label: "Como Funciona", href: "#como-funciona" },
   { label: "Dashboard", href: "#dashboard" },
-  { label: "Preços", href: "#precos" },
+  { label: "Planos", href: CHECKOUT_URL, openInNewTab: true },
 ];
 
 const Navbar = () => {
@@ -43,25 +43,32 @@ const Navbar = () => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="flex items-center gap-2"
+          className="flex items-center"
         >
-          <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-            <span className="font-display font-bold text-primary text-sm">S</span>
-          </div>
-          <span className="font-display font-bold text-foreground text-lg">SensoriAI</span>
+          <img src="/logo-sensoriai-icon.png" alt="SensoriAI" className="h-9 w-auto" />
         </a>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <button
-              key={item.href}
-              onClick={() => handleClick(item.href)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map((item) =>
+            "openInNewTab" in item && item.openInNewTab ? (
+              <button
+                key={item.label}
+                onClick={() => window.open(item.href, "_blank")}
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+              >
+                {item.label}
+              </button>
+            ) : (
+              <button
+                key={item.href}
+                onClick={() => handleClick(item.href)}
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+              >
+                {item.label}
+              </button>
+            )
+          )}
           <button
             onClick={() => window.open(DASHBOARD_URL, "_blank")}
             className="ml-3 px-5 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
@@ -89,15 +96,28 @@ const Navbar = () => {
             className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
           >
             <div className="px-4 py-4 space-y-1">
-              {navItems.map((item) => (
-                <button
-                  key={item.href}
-                  onClick={() => handleClick(item.href)}
-                  className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                "openInNewTab" in item && item.openInNewTab ? (
+                  <button
+                    key={item.label}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      window.open(item.href, "_blank");
+                    }}
+                    className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <button
+                    key={item.href}
+                    onClick={() => handleClick(item.href)}
+                    className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                  >
+                    {item.label}
+                  </button>
+                )
+              )}
               <button
                 onClick={() => {
                   setMobileOpen(false);

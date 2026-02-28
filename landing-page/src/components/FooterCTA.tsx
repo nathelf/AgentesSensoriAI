@@ -41,11 +41,8 @@ const FooterCTA = () => {
 
         {/* Footer bottom */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-              <span className="font-display font-bold text-primary text-sm">S</span>
-            </div>
-            <span className="font-display font-bold text-foreground">SensoriAI</span>
+          <div className="flex items-center">
+            <img src="/logo-sensoriai-icon.png" alt="SensoriAI" className="h-8 w-auto" />
           </div>
 
           <div className="flex items-center gap-4">

@@ -4,7 +4,6 @@ import ProblemSolutionSection from "@/components/ProblemSolutionSection";
 import VersatilitySection from "@/components/VersatilitySection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import DashboardSection from "@/components/DashboardSection";
-import PricingSection from "@/components/PricingSection";
 import FooterCTA from "@/components/FooterCTA";
 
 const Index = () => {
@@ -25,9 +24,6 @@ const Index = () => {
       </div>
       <div id="dashboard">
         <DashboardSection />
-      </div>
-      <div id="precos">
-        <PricingSection />
       </div>
       <div id="cta-final">
         <FooterCTA />

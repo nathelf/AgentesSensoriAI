@@ -261,9 +261,7 @@ export default function ChatSimulator() {
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 bg-success/[0.06] border-b border-white/[0.05]">
           <ArrowLeft className="w-5 h-5 text-muted-foreground" strokeWidth={1.5} />
-          <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center glow-success">
-            <span className="text-sm font-bold text-primary">SA</span>
-          </div>
+          <img src="/logo-sensoriai-icon.png" alt="SensoriAI" className="h-10 w-10 object-contain" />
           <div className="flex-1">
             <p className="text-sm font-semibold text-foreground">SensoriAI Atacado</p>
             <div className="flex items-center gap-1.5">

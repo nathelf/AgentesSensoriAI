@@ -38,17 +38,15 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              {/* Botão de Teste do Sistema - Abre o Dashboard em nova aba */}
               <Button
                 size="lg"
-                className="btn-glow bg-primary text-primary-foreground hover:bg-primary/90 animate-pulse-glow text-base px-8 py-6 font-semibold gap-2"
+                variant="outline"
+                className="border-glass-border text-foreground hover:bg-muted/50 text-base px-8 py-6 font-medium gap-2"
                 onClick={() => window.open(DASHBOARD_URL, "_blank")}
               >
                 <Play className="w-5 h-5" />
-                Testar Agente Agora (Demo Grátis)
+                Testar Agente (Demo Grátis)
               </Button>
-
-              {/* Botão de contato - leva para WhatsApp ou formulário */}
               <Button
                 size="lg"
                 variant="outline"

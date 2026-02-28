@@ -4,7 +4,8 @@
   "scripts": {
     "dev:landing": "cd landing-page && npm run dev",
     "dev:dashboard": "cd dashboard && npm run dev",
-    "dev": "concurrently \"npm run dev:landing\" \"npm run dev:dashboard\"",
+    "dev:checkout": "cd sensoriai-checkout-flow && npm run dev",
+    "dev": "concurrently \"npm run dev:landing\" \"npm run dev:dashboard\" \"npm run dev:checkout\"",
     "build:landing": "cd landing-page && npm run build",
     "build:dashboard": "cd dashboard && npm run build",
     "build": "npm run build:landing && npm run build:dashboard"
