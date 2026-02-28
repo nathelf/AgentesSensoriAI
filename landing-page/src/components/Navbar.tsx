@@ -7,7 +7,7 @@ const navItems = [
   { label: "Problema", href: "#problema" },
   { label: "Nichos", href: "#nichos" },
   { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Dashboard", href: "#dashboard" },
+  { label: "Dashboard", href: DASHBOARD_URL, openInNewTab: true },
   { label: "Planos", href: CHECKOUT_URL, openInNewTab: true },
 ];
 
