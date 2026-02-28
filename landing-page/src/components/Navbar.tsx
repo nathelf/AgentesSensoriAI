@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { DASHBOARD_URL } from "@/config";
 
 const navItems = [
   { label: "Problema", href: "#problema" },
@@ -62,7 +63,7 @@ const Navbar = () => {
             </button>
           ))}
           <button
-            onClick={() => handleClick("#cta-final")}
+            onClick={() => window.open(DASHBOARD_URL, "_blank")}
             className="ml-3 px-5 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Demo Grátis
@@ -98,7 +99,10 @@ const Navbar = () => {
                 </button>
               ))}
               <button
-                onClick={() => handleClick("#cta-final")}
+                onClick={() => {
+                  setMobileOpen(false);
+                  window.open(DASHBOARD_URL, "_blank");
+                }}
                 className="block w-full mt-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground text-center"
               >
                 Demo Grátis

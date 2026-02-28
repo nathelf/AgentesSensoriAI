@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Play, MonitorPlay } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "@/components/PhoneMockup";
+import { DASHBOARD_URL } from "@/config";
 
 const HeroSection = () => {
   return (
@@ -41,7 +42,7 @@ const HeroSection = () => {
               <Button
                 size="lg"
                 className="btn-glow bg-primary text-primary-foreground hover:bg-primary/90 animate-pulse-glow text-base px-8 py-6 font-semibold gap-2"
-                onClick={() => window.open("https://agentevendas.lovable.app/", "_blank")}
+                onClick={() => window.open(DASHBOARD_URL, "_blank")}
               >
                 <Play className="w-5 h-5" />
                 Testar Agente Agora (Demo Grátis)
