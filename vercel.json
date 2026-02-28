@@ -1,13 +1,5 @@
 {
-  "installCommand": "npm install && cd landing-page && npm install && cd ../dashboard && npm install && cd ../sensoriai-checkout-flow && npm install",
-  "buildCommand": "node scripts/build-all.js",
-  "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard/index.html" },
-    { "source": "/dashboard/", "destination": "/dashboard/index.html" },
-    { "source": "/dashboard/:path*", "destination": "/dashboard/index.html" },
-    { "source": "/checkout", "destination": "/checkout/index.html" },
-    { "source": "/checkout/", "destination": "/checkout/index.html" },
-    { "source": "/checkout/:path*", "destination": "/checkout/index.html" }
-  ]
+  "installCommand": "cd landing-page && npm install",
+  "buildCommand": "cd landing-page && npm run build",
+  "outputDirectory": "landing-page/dist"
 }

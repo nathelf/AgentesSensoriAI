@@ -1,81 +1,70 @@
 # Deploy no Vercel — SensoriAI
 
-Recomendado: **um único projeto** no Vercel que serve landing, dashboard e checkout no mesmo domínio.
+**Um único site** (landing + dashboard + checkout) na mesma porta, trocando apenas as páginas (SPA).
 
 ---
 
-## Deploy único (recomendado)
+## Deploy único
 
-Um só projeto Vercel, apontando para a **raiz** do repositório. O build gera um `dist/` com os três apps:
+Um só projeto Vercel, apontando para a **raiz** do repositório. O build gera um único `dist/` a partir da pasta `landing-page`:
 
 - **/** → Landing Page  
 - **/dashboard** → Dashboard  
-- **/checkout** → Checkout  
+- **/dashboard/chat** → Agente de Vendas (chat)  
+- **/checkout** → Planos e formulário de contratação  
 
 ### Configuração no Vercel
 
 | Configuração | Valor |
 |--------------|--------|
-| **Root Directory** | *(deixe vazio — raiz do repo)* |
-| **Framework Preset** | Other (ou Vite; o build é customizado) |
-| **Build Command** | `node scripts/build-all.js` *(já definido em `vercel.json`)* |
-| **Output Directory** | `dist` *(já definido em `vercel.json`)* |
-| **Install Command** | *(já definido em `vercel.json`)* |
+| **Root Directory** | *(vazio — raiz do repo)* |
+| **Build Command** | `cd landing-page && npm run build` *(em `vercel.json`)* |
+| **Output Directory** | `landing-page/dist` *(em `vercel.json`)* |
+| **Install Command** | `cd landing-page && npm install` *(em `vercel.json`)* |
 
-O `vercel.json` na raiz já define:
+O `vercel.json` na raiz já define esses comandos; não é preciso configurar manualmente no painel.
 
-- **installCommand:** instala dependências na raiz, em `landing-page`, em `dashboard` e em `sensoriai-checkout-flow`.
-- **buildCommand:** `node scripts/build-all.js` — faz o build dos três apps com bases corretas e junta tudo em `dist/`.
-- **outputDirectory:** `dist`.
-- **rewrites:** `/dashboard` e `/checkout` (e subrotas) servem o `index.html` de cada SPA; arquivos estáticos (ex.: `/dashboard/assets/`, `/checkout/assets/`) são servidos normalmente.
+### Variáveis de ambiente
 
-Não é necessário configurar Root Directory nem comandos manualmente se o `vercel.json` estiver commitado; o Vercel usa essas chaves.
-
-### Variáveis de ambiente (Settings → Environment Variables)
-
-Configure na **raiz do projeto** (o único projeto Vercel):
+No projeto Vercel (raiz):
 
 | Nome | Valor | Observação |
 |------|--------|------------|
 | `VITE_SUPABASE_URL` | `https://xxx.supabase.co` | URL do projeto Supabase |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | *(anon key)* | Chave **anon public** em Supabase → Project Settings → API |
 
-Opcional (para links na landing):
-
-| Nome | Valor | Observação |
-|------|--------|------------|
-| `VITE_DASHBOARD_URL` | `https://seu-dominio.vercel.app/dashboard` | URL do dashboard (no deploy único, mesmo domínio) |
-| `VITE_CHECKOUT_URL` | `https://seu-dominio.vercel.app/checkout` | URL do checkout (no deploy único, mesmo domínio) |
-
-Se não definir `VITE_DASHBOARD_URL` e `VITE_CHECKOUT_URL`, use no código caminhos relativos (ex.: `/dashboard`, `/checkout`) para funcionar em qualquer domínio.
+Não é necessário `VITE_DASHBOARD_URL` nem `VITE_CHECKOUT_URL`: tudo roda no mesmo domínio com rotas `/dashboard` e `/checkout`.
 
 ### Ordem de deploy
 
 1. Conecte o repositório no Vercel (um projeto, raiz do repo).
-2. Configure as variáveis do Supabase (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`).
-3. Deploy. O build roda `scripts/build-all.js`, que gera o `dist/` combinado.
-4. Após o deploy, acesse: `https://seu-projeto.vercel.app/`, `.../dashboard`, `.../checkout`.
+2. Configure `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`.
+3. Deploy. O build roda na pasta `landing-page` e gera `landing-page/dist`.
+4. Acesse: `https://seu-projeto.vercel.app/`, `.../dashboard`, `.../dashboard/chat`, `.../checkout`.
 
-### Conferência rápida (deploy único)
+### Conferência rápida
 
-- [ ] `vercel.json` na raiz com `installCommand`, `buildCommand`, `outputDirectory` e `rewrites`
-- [ ] `scripts/build-all.js` existe e roda sem erro localmente (`npm run build` na raiz)
-- [ ] Variáveis do Supabase configuradas no projeto Vercel (raiz)
-- [ ] `.env` no `.gitignore` (não sobe para o Git)
-
----
-
-## Alternativa: três projetos separados
-
-Se preferir **três projetos** no Vercel (três URLs diferentes):
-
-1. Crie 3 projetos; em cada um defina **Root Directory** para `landing-page`, `dashboard` ou `sensoriai-checkout-flow`.
-2. **Landing:** Build Command `npm run build`, Output `dist`. Variáveis: `VITE_DASHBOARD_URL` e `VITE_CHECKOUT_URL` com as URLs dos outros dois projetos.
-3. **Dashboard:** Build Command `npm run build`, Output `dist`.
-4. **Checkout:** Build Command `npm run build`, Output `dist`. Variáveis: `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
-
-Ordem sugerida: deploy do Checkout e do Dashboard primeiro; depois Landing com as URLs corretas e redeploy.
+- [ ] `vercel.json` na raiz com `installCommand`, `buildCommand`, `outputDirectory`
+- [ ] `npm run build` na raiz (ou `cd landing-page && npm run build`) roda sem erro
+- [ ] Variáveis do Supabase configuradas no Vercel
+- [ ] `.env` no `.gitignore`
 
 ---
 
-Com o deploy único, um só domínio e um só deploy bastam para os três apps.
+## Desenvolvimento local
+
+Na raiz do repositório:
+
+```bash
+npm run dev
+```
+
+Isso sobe **um único servidor** (porta 3000) com todas as rotas. Para apenas a landing:
+
+```bash
+cd landing-page && npm run dev
+```
+
+---
+
+Com isso, um único site, uma única porta e um único deploy no Vercel.

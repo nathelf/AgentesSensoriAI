@@ -54,6 +54,9 @@ export default {
         glass: {
           border: "hsl(var(--glass-border))",
         },
+        success: "hsl(var(--success))",
+        tech: "hsl(var(--tech))",
+        warning: "hsl(var(--warning))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

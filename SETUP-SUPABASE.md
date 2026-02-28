@@ -55,7 +55,23 @@ Assim, inserts/updates nessas tabelas serão enviados em tempo real para os clie
 
 ## 5. Configurar as variáveis de ambiente no seu projeto
 
-### Checkout (sensoriai-checkout-flow)
+### App unificado (landing-page) — um único site
+
+O formulário de planos em **/checkout** usa Supabase. Configure no **.env** da pasta **landing-page** (ou nas variáveis do Vercel):
+
+```env
+# URL do projeto — SEM barra no final
+VITE_SUPABASE_URL=https://SEU_PROJECT_REF.supabase.co
+# Chave pública: use a "Publishable API Key" (sb_publishable_...) ou a "anon public" (eyJ...)
+VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave_aqui
+```
+
+- **Project URL:** em Supabase → Project Settings → API. Use **sem** barra no final (ex: `https://sxihmlhadnevpgdflrxz.supabase.co`).
+- **Publishable API Key:** em Project Settings → API. Pode ser a chave **Publishable** (`sb_publishable_...`) ou a **anon public** (JWT `eyJ...`). Ambas funcionam com o cliente JS.
+
+Depois de alterar o `.env`, reinicie o servidor (`npm run dev` na raiz ou em `landing-page`).
+
+### Checkout (sensoriai-checkout-flow) — se usar o projeto separado
 
 1. Abra o arquivo **`sensoriai-checkout-flow/.env`** (crie se não existir).
 2. Preencha com os valores do seu projeto:
@@ -113,6 +129,9 @@ Se aparecer, a conexão e a tabela estão corretas.
 
 - **"relation public.leads does not exist"**  
   A migration que cria a tabela `leads` ainda não foi executada. Rode o SQL do passo 3 no SQL Editor.
+
+- **Erro de API key / Invalid API key**  
+  Confira o valor de `VITE_SUPABASE_PUBLISHABLE_KEY`. Use a **Publishable API Key** (`sb_publishable_...`) ou a **anon public** (eyJ...), sem espaços no início/fim. No Vercel, confira se as variáveis estão salvas e faça um novo deploy.
 
 - **Erro de CORS ou rede**  
   Confira se `VITE_SUPABASE_URL` está correto (com `https://` e sem barra no final).

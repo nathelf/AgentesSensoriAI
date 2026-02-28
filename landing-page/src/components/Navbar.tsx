@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { getDashboardUrl, getCheckoutUrl } from "@/config";
 
 const navItems = [
   { label: "Problema", href: "#problema" },
   { label: "Nichos", href: "#nichos" },
   { label: "Como Funciona", href: "#como-funciona" },
-  { label: "Dashboard", href: getDashboardUrl(), openInNewTab: true },
-  { label: "Planos", href: getCheckoutUrl(), openInNewTab: true },
+  { label: "Dashboard", href: getDashboardUrl() },
+  { label: "Planos", href: getCheckoutUrl() },
 ];
 
 const Navbar = () => {
@@ -29,11 +30,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-lg shadow-background/50"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
@@ -51,17 +51,7 @@ const Navbar = () => {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) =>
-            "openInNewTab" in item && item.openInNewTab ? (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md block"
-              >
-                {item.label}
-              </a>
-            ) : (
+            item.href.startsWith("#") ? (
               <button
                 key={item.href}
                 onClick={() => handleClick(item.href)}
@@ -69,16 +59,22 @@ const Navbar = () => {
               >
                 {item.label}
               </button>
+            ) : (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md block"
+              >
+                {item.label}
+              </Link>
             )
           )}
-          <a
-            href={getDashboardUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to={getDashboardUrl()}
             className="ml-3 px-5 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors inline-block"
           >
             Demo Grátis
-          </a>
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -101,18 +97,7 @@ const Navbar = () => {
           >
             <div className="px-4 py-4 space-y-1">
               {navItems.map((item) =>
-                "openInNewTab" in item && item.openInNewTab ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileOpen(false)}
-                    className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
+                item.href.startsWith("#") ? (
                   <button
                     key={item.href}
                     onClick={() => handleClick(item.href)}
@@ -120,17 +105,24 @@ const Navbar = () => {
                   >
                     {item.label}
                   </button>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block w-full text-left px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
+                  >
+                    {item.label}
+                  </Link>
                 )
               )}
-              <a
-                href={getDashboardUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={getDashboardUrl()}
                 onClick={() => setMobileOpen(false)}
                 className="block w-full mt-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground text-center"
               >
                 Demo Grátis
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

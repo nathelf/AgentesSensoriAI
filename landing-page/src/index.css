@@ -50,6 +50,11 @@
     --sidebar-accent-foreground: 210 40% 96%;
     --sidebar-border: 222 20% 14%;
     --sidebar-ring: 160 75% 39%;
+    --success: 160 84% 39%;
+    --tech: 217 91% 60%;
+    --warning: 38 92% 50%;
+    --chat-user: 160 40% 14%;
+    --chat-ai: 220 35% 16%;
   }
 }
 
@@ -113,6 +118,16 @@
 
   .gradient-footer {
     background: linear-gradient(to top, hsl(160 75% 20% / 0.15), hsl(222 47% 2% / 1));
+  }
+
+  .glow-success {
+    box-shadow: 0 0 30px hsl(var(--success) / 0.12), 0 0 80px hsl(var(--success) / 0.04);
+  }
+  .glow-tech {
+    box-shadow: 0 0 30px hsl(var(--tech) / 0.12), 0 0 80px hsl(var(--tech) / 0.04);
+  }
+  .mono {
+    font-family: 'JetBrains Mono', 'ui-monospace', monospace;
   }
 }
 

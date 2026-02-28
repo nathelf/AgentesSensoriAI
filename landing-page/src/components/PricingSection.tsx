@@ -1,16 +1,17 @@
-import { motion } from "framer-motion";
-import { Check, Zap, Crown, Building2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Zap, Crown, Building2, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const plans = [
   {
     id: "starter",
     name: "Starter",
-    icon: Zap,
     price: "197",
     period: "/mês",
     description: "Ideal para pequenos negócios começando a automatizar.",
-    highlight: false,
+    icon: Zap,
+    popular: false,
+    cta: "Começar Agora",
     features: [
       "1 número de WhatsApp",
       "500 conversas/mês",
@@ -23,12 +24,12 @@ const plans = [
   {
     id: "pro",
     name: "Pro",
-    icon: Crown,
     price: "497",
     period: "/mês",
     description: "Para empresas que querem escalar suas vendas com IA.",
-    highlight: true,
-    badge: "Mais Popular",
+    icon: Crown,
+    popular: true,
+    cta: "Começar Agora",
     features: [
       "3 números de WhatsApp",
       "Conversas ilimitadas",
@@ -43,11 +44,12 @@ const plans = [
   {
     id: "enterprise",
     name: "Enterprise",
-    icon: Building2,
     price: "Sob consulta",
     period: "",
     description: "Para operações de grande escala e atacadistas.",
-    highlight: false,
+    icon: Building2,
+    popular: false,
+    cta: "Falar com Vendas",
     features: [
       "Números ilimitados",
       "Conversas ilimitadas",
@@ -62,91 +64,80 @@ const plans = [
 ];
 
 const PricingSection = () => {
-  return (
-    <section id="precos" className="py-24 sm:py-32 relative">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[150px]" />
-      </div>
+  const navigate = useNavigate();
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Invista no seu{" "}
-            <span className="glow-text-primary">crescimento</span>
+  return (
+    <section className="py-20 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+            Invista no seu <span className="text-primary glow-text">crescimento</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Planos que cabem no bolso e se pagam na primeira semana de uso.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-start">
-          {plans.map((plan, i) => (
-            <motion.div
-              key={plan.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className={`relative rounded-2xl p-6 sm:p-8 backdrop-blur-xl border transition-all duration-300 ${
-                plan.highlight
-                  ? "glass-card-highlight md:scale-105 md:-my-4"
-                  : "glass-card hover:border-glass-border/80"
-              }`}
-            >
-              {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                  {plan.badge}
-                </div>
-              )}
-
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    plan.highlight ? "bg-primary/20" : "bg-muted/50"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {plans.map((plan) => {
+            const Icon = plan.icon;
+            return (
+              <div
+                key={plan.id}
+                className={`glass-card rounded-2xl p-6 md:p-8 relative flex flex-col ${plan.popular ? "glow-border-strong" : ""
                   }`}
-                >
-                  <plan.icon className={`w-5 h-5 ${plan.highlight ? "text-primary" : "text-muted-foreground"}`} />
-                </div>
-                <h3 className="font-display text-xl font-bold text-foreground">{plan.name}</h3>
-              </div>
-
-              <div className="mb-4">
-                <span className="font-display text-4xl font-bold text-foreground">
-                  {plan.price.startsWith("Sob") ? "" : "R$ "}
-                  {plan.price}
-                </span>
-                <span className="text-muted-foreground text-sm">{plan.period}</span>
-              </div>
-
-              <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
-
-              <Button
-                className={`w-full mb-6 py-5 font-semibold ${
-                  plan.highlight
-                    ? "btn-glow bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "bg-muted/50 text-foreground hover:bg-muted border border-border"
-                }`}
               >
-                {plan.price.startsWith("Sob") ? "Falar com Vendas" : "Começar Agora"}
-              </Button>
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full">
+                      Mais Popular
+                    </span>
+                  </div>
+                )}
 
-              <ul className="space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm">
-                    <Check className={`w-4 h-4 mt-0.5 shrink-0 ${plan.highlight ? "text-primary" : "text-muted-foreground"}`} />
-                    <span className="text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-display text-xl font-bold">{plan.name}</h3>
+                </div>
+
+                <div className="mb-2">
+                  {plan.price === "Sob consulta" ? (
+                    <p className="font-display text-3xl font-bold">Sob consulta</p>
+                  ) : (
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-sm text-muted-foreground">R$</span>
+                      <span className="font-display text-4xl font-bold">{plan.price}</span>
+                      <span className="text-muted-foreground">{plan.period}</span>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-muted-foreground text-sm mb-6">{plan.description}</p>
+
+                <Button
+                  onClick={() => navigate(`/planos?plan=${plan.id}`)}
+                  className={`w-full h-12 font-semibold mb-6 ${plan.popular
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90 btn-glow"
+                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
+                    }`}
+                >
+                  {plan.cta}
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+
+                <ul className="space-y-3 mt-auto">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

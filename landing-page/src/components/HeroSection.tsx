@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Play, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import PhoneMockup from "@/components/PhoneMockup";
 import { getDashboardUrl } from "@/config";
@@ -44,10 +45,10 @@ const HeroSection = () => {
                 className="border-glass-border text-foreground hover:bg-muted/50 text-base px-8 py-6 font-medium gap-2"
                 asChild
               >
-                <a href={getDashboardUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                <Link to={getDashboardUrl()} className="inline-flex items-center gap-2">
                   <Play className="w-5 h-5" />
                   Testar Agente (Demo Grátis)
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"

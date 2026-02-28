@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Clock, Bot, Brain, CreditCard } from "lucide-react";
+import { Link } from "react-router-dom";
 import { getCheckoutUrl } from "@/config";
 
 const cards = [
@@ -51,17 +52,19 @@ const ProblemSolutionSection = () => {
           className="text-center mb-16"
         >
           <div className="mb-10 flex justify-center">
-            <motion.a
-              href={getCheckoutUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="animate-planos-cta btn-glow relative inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-xl shadow-primary/30 transition-all hover:bg-primary/90 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              className="inline-block"
             >
-              <CreditCard className="h-6 w-6" />
-              Ver Planos e Preços
-            </motion.a>
+              <Link
+                to={getCheckoutUrl()}
+                className="animate-planos-cta btn-glow relative inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-xl shadow-primary/30 transition-all hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <CreditCard className="h-6 w-6" />
+                Ver Planos e Preços
+              </Link>
+            </motion.div>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Seu time dorme.{" "}
@@ -83,11 +86,10 @@ const ProblemSolutionSection = () => {
             <motion.div
               key={card.title}
               variants={cardVariants}
-              className={`p-6 sm:p-8 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
-                card.highlight
+              className={`p-6 sm:p-8 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${card.highlight
                   ? "glass-card-highlight scale-[1.02]"
                   : "glass-card hover:border-glass-border/80"
-              }`}
+                }`}
             >
               <card.icon className={`w-10 h-10 mb-4 ${card.iconColor}`} />
               <h3 className="font-display text-xl font-bold mb-1 text-foreground">{card.title}</h3>
