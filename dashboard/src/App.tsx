@@ -17,7 +17,7 @@ const App = () => (
       <SalesProvider>
         <Toaster />
         <Sonner position="top-right" toastOptions={{ className: "glass-card border-primary/20" }} />
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />
